@@ -1,12 +1,12 @@
 #include "sort.h"
 
 /**
- * bubble_sort - sorts an array using the 'Bubble Sort' algorithm
+ * selection_sort - sorts an array using the 'Selection Sort' algorithm
  *
  * @array: the target array (sorted in-place)
  * @size: the size of the array
  */
-void bubble_sort(int *array, size_t size)
+void selection_sort(int *array, size_t size)
 {
 	unsigned long i, j;
 	int tmp;
