@@ -41,12 +41,13 @@ void insertion_sort_list(listint_t **list)
 		node_2 = node_1->prev;
 		while (node_2)
 		{
-			if (node_1->n > node_2->n)
+			if (node_2->next != node_1)
 			{
 				insert_node_at(&node_2->next, node_1);
 				print_list(*list);
-				break;
 			}
+			if (node_1->n > node_2->n)
+				break;
 			node_2 = node_2->prev;
 		}
 		if (!node_2)
