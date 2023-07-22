@@ -24,10 +24,10 @@ void recursive_quick_sort(
 
 	while (left < right)
 	{
-		while (left < pivot && chunk[left] <= chunk[pivot])
+		while (left < pivot && chunk[left] < chunk[pivot])
 			left++;
 
-		while (right > left && chunk[right] > chunk[pivot])
+		while (right > left && chunk[right] >= chunk[pivot])
 			right--;
 
 		if (right <= left)
