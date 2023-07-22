@@ -29,7 +29,6 @@ void insert_node_at(listint_t **place, listint_t *node)
 void insertion_sort_list(listint_t **list)
 {
 	listint_t *node_1, *node_2, *next;
-	int tmp;
 
 	if (!list || !*list || !(*list)->next)
 		return;
@@ -51,7 +50,7 @@ void insertion_sort_list(listint_t **list)
 			node_2 = node_2->prev;
 		}
 		if (!node_2)
-		{ /* node_1 is min of array */
+		{
 			insert_node_at(list, node_1);
 			print_list(*list);
 		}
