@@ -15,7 +15,7 @@ void recursive_quick_sort(
 	unsigned long left, right, pivot;
 	int tmp;
 
-	if (!chunk || chunk_size < 2)
+	if (chunk_size < 2)
 		return;
 
 	pivot = chunk_size - 1;
@@ -24,10 +24,10 @@ void recursive_quick_sort(
 
 	while (left < right)
 	{
-		while (left < pivot && chunk[left] < chunk[pivot])
+		while (left < pivot && chunk[left] <= chunk[pivot])
 			left++;
 
-		while (right > left && chunk[right] >= chunk[pivot])
+		while (right > left && chunk[right] > chunk[pivot])
 			right--;
 
 		if (right <= left)
@@ -61,5 +61,7 @@ void recursive_quick_sort(
  */
 void quick_sort(int *array, size_t size)
 {
+	if (!array || size < 2)
+		return;
 	recursive_quick_sort(array, size, array, size);
 }
