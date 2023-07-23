@@ -39,10 +39,13 @@ void recursive_quick_sort(
 		print_array(array, array_size);
 	}
 
-	tmp = chunk[pivot];
-	chunk[pivot] = chunk[left];
-	chunk[left] = tmp;
-	print_array(array, array_size);
+	if (pivot != left)
+	{
+		tmp = chunk[pivot];
+		chunk[pivot] = chunk[left];
+		chunk[left] = tmp;
+		print_array(array, array_size);
+	}
 
 	recursive_quick_sort(array, array_size, chunk, left);
 	recursive_quick_sort(
