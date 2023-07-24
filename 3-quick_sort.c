@@ -1,52 +1,72 @@
 #include "sort.h"
 
+static int *g_array;
+static size_t g_size;
+
+/**
+ * swap - swaps two indices in an array
+ *
+ * @array: target array
+ * @i: first index
+ * @j: second index
+ */
+void swap(int *array, size_t i, size_t j)
+{
+	int tmp;
+
+	tmp = array[i];
+	array[i] = array[j];
+	array[j] = tmp;
+
+	print_array(g_array, g_size);
+}
+
+/**
+ * partition - splits array into lesser and greater elements than a pivot
+ *
+ * @array: the target array
+ * @lo: lower index
+ * @hi: higher index
+ *
+ * Return: the pivot index
+ */
+int partition(int *array, int lo, int hi)
+{
+	int i, j, pivot;
+
+	pivot = hi;
+	i = lo - 1;
+
+	for (j = lo; j < hi; j++)
+	{
+		if (array[j] <= array[pivot])
+		{
+			i++;
+			swap(array, i, j);
+		}
+	}
+
+	swap(array, i + 1, pivot);
+
+	return (i + 1);
+}
+
 /**
  * recursive_quick_sort - helper function for quick_sort()
  *
- * @array: the target array (sorted in-place)
- * @array_size: the size of the array
- * @chunk: the current chunk
- * @chunk_size: the current chunk size
+ * @array: the target array
+ * @lo: lower index
+ * @hi: higher index
  */
-void recursive_quick_sort(
-	int *array, size_t array_size,
-	int *chunk, size_t chunk_size)
+void recursive_quick_sort(int *array, int lo, int hi)
 {
-	unsigned long left, pivot;
-	int tmp;
-
-	if (chunk_size < 2)
-		return;
-
-	pivot = chunk_size - 1;
-	left = 0;
-
-	while (left < pivot)
+	if (lo < hi)
 	{
-		while (left < pivot && chunk[left] < chunk[pivot])
-			left++;
+		int p = partition(array, lo, hi);
 
-		if (pivot == left)
-			break;
-
-		tmp = chunk[left];
-		chunk[left] = chunk[pivot];
-		chunk[pivot] = tmp;
-		print_array(array, array_size);
+		recursive_quick_sort(array, lo, p - 1);
+		recursive_quick_sort(array, p + 1, hi);
 	}
-
-	if (pivot != left)
-	{
-		tmp = chunk[pivot];
-		chunk[pivot] = chunk[left];
-		chunk[left] = tmp;
-		print_array(array, array_size);
-	}
-
-	recursive_quick_sort(array, array_size, chunk, left);
-	recursive_quick_sort(
-		array, array_size,
-		chunk + (left + 1), chunk_size - left - 1);
 }
 
 /**
@@ -57,7 +77,9 @@ void recursive_quick_sort(
  */
 void quick_sort(int *array, size_t size)
 {
-	if (!array || size < 2)
+	if (!array)
 		return;
-	recursive_quick_sort(array, size, array, size);
+	g_array = array;
+	g_size = size;
+	recursive_quick_sort(array, 0, size - 1);
 }
