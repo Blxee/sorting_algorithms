@@ -47,7 +47,8 @@ int partition(int *array, int lo, int hi)
 		}
 	}
 
-	swap(array, i + 1, pivot);
+	if (i + 1 != pivot)
+		swap(array, i + 1, pivot);
 
 	return (i + 1);
 }
