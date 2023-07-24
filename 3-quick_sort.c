@@ -42,7 +42,8 @@ int partition(int *array, int lo, int hi)
 		if (array[j] <= array[pivot])
 		{
 			i++;
-			swap(array, i, j);
+			if (i != j)
+				swap(array, i, j);
 		}
 	}
 
@@ -77,7 +78,7 @@ void recursive_quick_sort(int *array, int lo, int hi)
  */
 void quick_sort(int *array, size_t size)
 {
-	if (!array)
+	if (!array || size < 2)
 		return;
 	g_array = array;
 	g_size = size;
